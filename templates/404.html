@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found</title>
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="{% static "css/error404.css"%}" rel="stylesheet">
+  </head>
+
+<body> 
+	<div class="error-container"> 
+		<h1> 404 </h1> 
+		<p> 
+			Oops! The page you're 
+			looking for is not here. 
+		</p> 
+		<a href="{% url 'home' %}"> 
+			Go Back to Home 
+		</a> 
+	</div> 
+</body> 
+
+</html>
