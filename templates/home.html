@@ -9,7 +9,7 @@
           <h1 class="display-4 font-italic">{{ post.title }}</h1>
           <p class="lead my-3">{{ post.short_description }}</p>
           <p class="lead mb-0">
-            <a href="#" class="text-white font-weight-bold">Continue reading...</a>
+            <a href="{% url 'blogs' post.slug %}" class="text-white font-weight-bold">Continue reading...</a>
           </p>
         </div>
       </div>
@@ -26,7 +26,7 @@
         <div class="col-md-6">
           <div class="card border-0">
             <div class="card-body">
-              <h3>{{ post.title }}</h3>
+              <h3><a href="{% url 'blogs' post.slug %}" class="text-dark">{{ post.title }}</a></h3>
               <small class="mb-1 text-muted">{{ post.created_at|timesince }} ago | {{ post.author }}</small>
               <p class="card-text">{{ post.short_description|truncatewords:20 }}</p> <!-- or we can use truncatechars:45 -->
             </div>
@@ -45,7 +45,7 @@
         {% for post in unfeatured_post %}
           <div class="card border-0">
             <div class="card-body">
-              <h3>{{ post.title }}</h3>
+              <h3><a href="{% url 'blogs' post.slug %}" class="text-dark">{{ post.title }}</a></h3>
               <small class="mb-1 text-muted">{{ post.created_at|timesince }} ago | {{ post.author }}</small>
               <p class="card-text">{{ post.short_description|truncatewords:20 }}</p>
             </div>
@@ -66,10 +66,10 @@
           <h4 class="font-italic">Follow Us</h4>
           <ol class="list-unstyled">
             <li>
-              <a href="#">GitHub</a>
+              <a href="https://github.com/Naveen018">GitHub</a>
             </li>
             <li>
-              <a href="#">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/naveen-v-de18/">LinkedIn</a>
             </li>
           </ol>
         </div>
