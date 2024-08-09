@@ -17,7 +17,7 @@
           </header>
           <!-- Preview image figure -->
           <figure class="mb-4">
-            <img class="img-fluid rounded" src="{{single_blog.featured_image.url}}" alt="..." />
+            <img class="img-fluid rounded" src="{{ single_blog.featured_image.url }}" alt="..." />
           </figure>
           <!-- Post content -->
           <section class="mb-5">
@@ -45,10 +45,10 @@
             <div class="row">
               <div class="col-sm-6">
                 <ul class="list-unstyled mb-0">
-                  {% for cat in categories %}  
-                  <li>
-                    <a href="{% url 'posts_by_category' cat.id %}">{{ cat.category_name }}</a>
-                  </li>
+                  {% for cat in categories %}
+                    <li>
+                      <a href="{% url 'posts_by_category' cat.id %}">{{ cat.category_name }}</a>
+                    </li>
                   {% endfor %}
                 </ul>
               </div>
@@ -56,17 +56,18 @@
           </div>
         </div>
         <!-- Side widget -->
-        <div class="card mb-4 p-3">
-          <h4 class="font-italic">Follow Us</h4>
-          <ol class="list-unstyled">
-            <li>
-              <a href="#">GitHub</a>
-            </li>
-            <li>
-              <a href="#">LinkedIn</a>
-            </li>
-          </ol>
-        </div>
+        {% if social_links %}
+          <div class="card mb-4 p-3">
+            <h4 class="font-italic">Follow Us</h4>
+            <ol class="list-unstyled">
+              {% for s in social_links %}
+                <li>
+                  <a href="{{ s.link }}" target="_blank">{{ s.platform }}</a> <!-- target = _blank will open the link in new tab -->
+                </li>
+              {% endfor %}
+            </ol>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
