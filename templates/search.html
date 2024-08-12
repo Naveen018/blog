@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3 class="text-warning" style="letter-spacing: 2px">Search Term - {{ keyword }}</h3>
+
+  <div class="row mb-2">
+    {% if blogs %}
+      {% for b in blogs %}
+        <div class="col-md-6">
+          <div class="card border-0">
+            <div class="card-body">
+              <h3><a href="{% url 'blogs' b.slug %}" class="text-dark">{{ b.title }}</a></h3>
+              <small class="mb-1 text-muted">{{ b.created_at|timesince }} ago | {{ b.author }}</small>
+              <p class="card-text">{{ b.short_description|truncatewords:20 }}</p> <!-- or we can use truncatechars:45 -->
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No Posts Found</p>
+    {% endif %}
+  </div>
+{% endblock %}
