@@ -27,7 +27,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
     path("category/", include("blog_mod.urls")),
-    path("<slug:slug>/", BlogappViews.blogs, name="blogs"),
+    path("blogs/<slug:slug>/", BlogappViews.blogs, name="blogs"),  # blogs/ endpoint is added else register/ would be treated as slug
     # Search Endpoint
     path("blogs/search/", BlogappViews.search, name="search"),
+    path("register/", views.register, name="register"),
+    path("login/",views.login, name="login"),
+    path("logout/",views.logout, name="logout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
