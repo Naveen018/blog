@@ -61,7 +61,7 @@ def login(request):
 # This auth.authenticate() will take username and password from the form we are getting and returns the user if uname and passw matches in db
             if user is not None:
                 auth.login(request, user)
-            return redirect("home")
+            return redirect("dashboard")
     else:
         form = AuthenticationForm()
         # AuthenticationForm is the default form for login features provided in django(It has only 2 fields-username and password)

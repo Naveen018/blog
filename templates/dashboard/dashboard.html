@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <!-- Left Sidebar -->
+    <!-- Load sidebar here from sidebar.html -->
+    {% include 'dashboard/sidebar.html' %}
+
+    <!-- Right Side Content -->
+    <div class="col-md-9">
+      <span>Logged in as {{ user }}</span>
+      <div class="row">
+        <div class="col">
+          <div class="card border-default mb-3">
+            <div class="card-header text-center text-uppercase font-weight-bold">All Categories</div>
+            <div class="card-body text-dark">
+              <h5 class="card-title text-center">{{ category_count }}</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card border-default mb-3">
+            <div class="card-header text-center text-uppercase font-weight-bold">All Posts</div>
+            <div class="card-body text-dark">
+              <h5 class="card-title text-center">{{ blogs_count }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
