@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="row">
+    <!-- Left Sidebar -->
+    <!-- Load sidebar here from sidebar.html -->
+
+    {% include 'dashboard/sidebar.html' %}
+
+    <!-- Right Side Content -->
+    <div class="col-md-9">
+      <h2>Add New Post</h2>
+      <!-- Whenever our form contains uploading images/files form tag should have enctype compulsorily and in views use request.FILES -->
+      <form action="{% url 'add_post' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-warning">Add</button>
+      </form>
+      <br>
+    </div>
+  </div>
+{% endblock %}
