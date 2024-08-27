@@ -2,6 +2,10 @@
 <div class="col-md-3">
   <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
     <a href="{% url 'dashboard' %}" class="nav-link text-dark {% if '/dashboard/' == request.path %}bg-warning{% endif %}">Dashboard</a>
+    {% if perms.auth.view_user %}
+      <!-- This is based on the permissions we have given from admin panel(can also user add_user/delete_user instead of view_user) -->
+      <a href="{% url 'users' %}" class="nav-link text-dark {% if '/dashboard/users/' == request.path %}bg-warning{% endif %}">Users</a>
+    {% endif %}
     <a href="{% url 'categories' %}" class="nav-link text-dark {% if '/dashboard/categories/' == request.path %}bg-warning{% endif %}">Categories</a>
     <a href="{% url 'posts' %}" class="nav-link text-dark {% if '/dashboard/posts/' == request.path %}bg-warning{% endif %}">Posts</a>
     <a href="" class="nav-link text-dark">Logout</a>

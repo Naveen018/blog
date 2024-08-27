@@ -3,8 +3,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from blog_mod.models import Blog, Category
 from django.contrib.auth.decorators import login_required
 
-from dashboard.forms import BlogPostForm, CategoryForm
+from dashboard.forms import AddUserForm, BlogPostForm, CategoryForm, EditUserForm
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -104,16 +105,16 @@ def edit_post(request, id):
     if request.method == "POST":
         form = BlogPostForm(request.POST, request.FILES, instance=post)  # Passing instance(previous value) is compulsory
 
-        # Why instance=category in POST?
-        # When you submit the edited form, the instance=category argument ensures that the updated data is saved to the same category object in the database.
-        # Without instance=category, a new category object might be created with the submitted data, leading to duplicate entries.
+        # Why instance=post in POST?
+        # When you submit the edited form, the instance=post argument ensures that the updated data is saved to the same blog post object in the database.
+        # Without instance=post, a new blog post object might be created with the submitted data, leading to duplicate entries.
         if form.is_valid:
             post = form.save()
             title = form.cleaned_data['title']
             post.slug = slugify(title) + '-' + str(post.id)
             post.save()
             return redirect("posts")
-    form = BlogPostForm(instance=post)  # Here instance will prepopulate the category name in the form when we click on edit
+    form = BlogPostForm(instance=post)  # Here instance will prepopulate the post details in the form when we click on edit
     context = {"form": form, "post": post}
     return render(request, "dashboard/edit_post.html", context)
 # NOTE: We haven't handled updating images in edit_post functionality
@@ -124,3 +125,46 @@ def delete_post(request, id):
     post = get_object_or_404(Blog, id=id)
     post.delete()
     return redirect("posts")
+
+
+def users(request):
+    users = User.objects.all()
+    context = {
+        "users" : users
+    }
+    return render(request, "dashboard/users.html", context)
+
+def add_user(request):
+    if request.method == "POST":
+        form = AddUserForm(request.POST) 
+        # request.POST will hold all the values of form we enter in the UI as dictionary(key-form fields, value-form data)
+        if form.is_valid:
+            form.save()
+            return redirect("users")
+        else:
+            print(form.errors)
+    form = AddUserForm()
+    context = {"form" : form}
+    return render(request, "dashboard/add_user.html", context)
+
+
+def edit_user(request, id):
+    user = get_object_or_404(User, id=id)
+    if request.method == "POST":
+        form = EditUserForm(request.POST, instance=user)  # Passing instance(previous value) is compulsory
+
+        # Why instance=user in POST?
+        # When you submit the edited form, the instance=user argument ensures that the updated data is saved to the same category object in the database.
+        # Without instance=user, a new user object might be created with the submitted data, leading to duplicate entries.
+        if form.is_valid:
+            form.save()
+            return redirect("users")
+    form = EditUserForm(instance=user)  # Here instance will prepopulate the user details in the form when we click on edit
+    context = {"form": form, "user": user}
+    return render(request, "dashboard/edit_user.html", context)
+
+
+def delete_user(request, id):
+    user = get_object_or_404(User, id=id)
+    user.delete()
+    return redirect("users")
