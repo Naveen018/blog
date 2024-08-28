@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-es=ji+lo1y&6rmbcs*5gs0ot)n7mi4eox3op81e*h8^^vsx@lu"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # Change to False for production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # For production add "naveen3112.pythonanywhere.com"
 
 
 # Application definition
@@ -125,7 +125,9 @@ USE_TZ = True
 
 STATIC_ROOT = BASE_DIR / "staticfiles"  # This is mandatory for production deployment
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]  
+# These are mainly required for app specific staticfiles. Since we have global static files even if we comment out STATICFILES_DIRS
+# static files gets loaded correctly
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
