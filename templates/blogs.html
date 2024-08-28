@@ -23,6 +23,40 @@
           <section class="mb-5">
             <p class="fs-5 mb-4">{{ single_blog.short_description }}</p>
             <p class="fs-5 mb-4">{{ single_blog.blog_body }}</p>
+
+            <!-- Comments -->
+            <h3>Comments ({{ comment_count }})</h3>
+            {% if comments %}
+              {% for com in comments %}
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <p class="card-text mb-0">{{ com.comment }}</p>
+                    <span>
+                      <small>By {{ com.user }}</small>
+                      <small>| {{ com.created_at|timesince }} ago</small>
+                    </span>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p>No comments yet</p>
+            {% endif %}
+            <br />
+            <div class="form-group">
+              {% if user.is_authenticated %}
+                <form action="" method="post">
+                  <!-- Here there is no need to mention action url because it will anyway bydefault calls blogs function in views -->
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
+                    <!-- this textarea tag autoincreases comment box size as we write more words in the box -->
+                    <input type="submit" value="Submit" class="btn btn-primary mt-2" />
+                  </div>
+                </form>
+              {% else %}
+                <p>Please <span><a href="{% url 'login' %}">Login</a></span> to Write a comment</p>
+              {% endif %}
+            </div>
           </section>
         </article>
       </div>
